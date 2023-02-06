@@ -1,6 +1,27 @@
 import numpy as np
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 
+def data_clean(data):
+    """
+    Delete blank space in column name
+
+    Inputs
+    ------
+    X : pd.DataFrame
+    Raw data
+
+    Returns
+    -------
+    X : pd.DataFrame
+
+    """
+    col_list = []
+    for i in data.columns.tolist():
+        col = str(i).replace(' ', '')
+        col_list.append(col)
+    data.columns = col_list
+
+    return data
 
 def process_data(
     X, categorical_features=[], label=None, training=True, encoder=None, lb=None
