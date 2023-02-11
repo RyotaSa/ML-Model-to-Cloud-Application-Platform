@@ -6,7 +6,7 @@ import pandas as pd
 import pickle
 
 from ml.data import process_data, data_clean
-from ml.model import train_model, compute_model_metrics, inference
+from ml.model import train_model, compute_model_metrics, inference, compute_model_metrics_on_slices
 
 # Add code to load in the data.
 data = pd.read_csv("../data/census.csv")
@@ -51,7 +51,19 @@ preds = inference(model, X_test)
 # Model metrics
 precision, recall, fbeta = compute_model_metrics(y_test, preds)
 
-print(preds)
+# Model metric on slices
+metric_dict = compute_model_metrics_on_slices(model, test, encoder, lb, cat_features)
+
+with open("slice_output.txt", "w") as f:
+        f.write("Metrics on slices\n")
+        
+        for cat_feat, col_dict in metric_dict.items():
+            f.write(f"\nCategory name: {cat_feat}\n")
+            f.write("value, precision, recall, fbeta\n")
+            for value, metrics in col_dict.items():
+                f.write(f"\n{value},{metrics[0]},{metrics[1]},{metrics[2]}\n")
+
+# Print test metrics
 print(precision)
 print(recall)
 print(fbeta)
