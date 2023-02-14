@@ -21,5 +21,5 @@ person = {
 # Test for request page
 request = requests.post('https://render-deployment-ml-cloud.onrender.com/predict',json=person)
 
-print(request.json())
-
+print("The request status code is {}".format(request.status_code))
+print("The result is {}".format(request.json().get('the result')))

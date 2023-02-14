@@ -21,6 +21,7 @@ cat_features = [
     "sex",
     "native-country",
 ]
+
 X_train, y_train, encoder, lb = process_data(
     train, categorical_features=cat_features, label="salary", training=True
 )
@@ -31,17 +32,25 @@ X_test, y_test, _, _ = process_data(
     encoder=encoder, lb=lb
 )
 
-# Test checking encoder and label binarizer
-assert type(encoder) == sklearn.preprocessing._encoders.OneHotEncoder
-assert type(lb) == sklearn.preprocessing._label.LabelBinarizer
-
 model = train_model(X_train, y_train)
 preds = inference(model, X_test)
-# Test if prediction values exist
-assert len(preds) > 0
 
-precision, recall, fbeta = compute_model_metrics(y_test, preds)
+# Test checking encoder and label binarizer
+def test_encoder_and_lb(encoder, lb):
+    assert type(encoder) == sklearn.preprocessing._encoders.OneHotEncoder
+    assert type(lb) == sklearn.preprocessing._label.LabelBinarizer
+
+# Test if prediction values exist
+def test_prediction_exist(preds):
+    assert len(preds) > 0
+
 # Test metrics if values are between 0 and 1
-assert 0 < precision < 1
-assert 0 < recall < 1
-assert 0 < fbeta < 1
+def test_metrics(y_test, preds):
+    precision, recall, fbeta = compute_model_metrics(y_test, preds)
+    assert 0 < precision < 1
+    assert 0 < recall < 1
+    assert 0 < fbeta < 1
+
+test_encoder_and_lb(encoder, lb)
+test_prediction_exist(preds)
+test_metrics(y_test, preds)
