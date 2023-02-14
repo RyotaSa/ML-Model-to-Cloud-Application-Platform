@@ -36,21 +36,21 @@ model = train_model(X_train, y_train)
 preds = inference(model, X_test)
 
 # Test checking encoder and label binarizer
-def test_encoder_and_lb(encoder, lb):
+def test_encoder_and_lb():
     assert type(encoder) == sklearn.preprocessing._encoders.OneHotEncoder
     assert type(lb) == sklearn.preprocessing._label.LabelBinarizer
 
 # Test if prediction values exist
-def test_prediction_exist(preds):
+def test_prediction_exist():
     assert len(preds) > 0
 
 # Test metrics if values are between 0 and 1
-def test_metrics(y_test, preds):
+def test_metrics():
     precision, recall, fbeta = compute_model_metrics(y_test, preds)
     assert 0 < precision < 1
     assert 0 < recall < 1
     assert 0 < fbeta < 1
 
-test_encoder_and_lb(encoder, lb)
+test_encoder_and_lb()
 test_prediction_exist(preds)
 test_metrics(y_test, preds)
