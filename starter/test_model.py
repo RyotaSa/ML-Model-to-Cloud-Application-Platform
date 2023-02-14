@@ -2,8 +2,8 @@ import pandas as pd
 import sklearn
 from sklearn.model_selection import train_test_split
 
-from ml.data import process_data, data_clean
-from ml.model import train_model, compute_model_metrics, inference
+from starter.ml.data import process_data, data_clean
+from starter.ml.model import train_model, compute_model_metrics, inference
 
 # Add code to load in the data.
 data = pd.read_csv("../data/census.csv")
