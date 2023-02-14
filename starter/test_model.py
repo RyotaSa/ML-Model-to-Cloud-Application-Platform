@@ -6,7 +6,7 @@ from ml.data import process_data, data_clean
 from ml.model import train_model, compute_model_metrics, inference
 
 # Add code to load in the data.
-data = pd.read_csv("../data/census.csv")
+data = pd.read_csv("./data/census.csv")
 data = data_clean(data)
 
 train, test = train_test_split(data, test_size=0.20)
