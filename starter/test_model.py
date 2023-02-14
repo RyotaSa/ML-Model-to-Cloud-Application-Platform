@@ -52,5 +52,5 @@ def test_metrics():
     assert 0 < fbeta < 1
 
 test_encoder_and_lb()
-test_prediction_exist(preds)
-test_metrics(y_test, preds)
+test_prediction_exist()
+test_metrics()
